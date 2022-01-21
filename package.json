@@ -1,0 +1,15 @@
+{
+	"name": "cats",
+	"version": "1.0.0",
+	"description": "Website showing images of cats",
+	"main": "index.js",
+	"scripts": {
+		"start": "snowpack dev",
+		"build": "snowpack build"
+	},
+	"author": "Anton Jaldegren",
+	"license": "ISC",
+	"dependencies": {
+		"snowpack": "^3.8.8"
+	}
+}

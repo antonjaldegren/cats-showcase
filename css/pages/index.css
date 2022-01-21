@@ -1,0 +1,52 @@
+body {
+	min-height: 100vh;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	max-width: 80rem;
+	margin: 0 auto;
+	padding: 2em 1em;
+}
+button {
+	flex-grow: 1;
+	border: none;
+	padding: 0.7em 0;
+	box-shadow: var(--box-shadow);
+}
+
+button:disabled {
+	cursor: not-allowed;
+}
+
+.button-container,
+small,
+.cat-container {
+	margin-top: 1.6em;
+}
+
+.button-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1em;
+}
+
+.cat-container {
+	display: grid;
+	gap: 1em;
+	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+}
+
+.cat-container img {
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	width: 100%;
+	box-shadow: var(--box-shadow);
+}
+
+.error-message {
+	background: var(--clr-lgt-red);
+	border-left: 1rem solid var(--clr-drk-red);
+	padding: 1.3em;
+}

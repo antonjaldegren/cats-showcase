@@ -1,0 +1,9 @@
+button {
+	color: var(--clr-white);
+	background: var(--clr-drk-blue);
+}
+
+button:disabled {
+	color: var(--clr-grey);
+	background: var(--clr-lgt-blue);
+}
