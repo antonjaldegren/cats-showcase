@@ -20,8 +20,8 @@ function enableButtons() {
 }
 
 async function fetchCats() {
-	disableButtons();
 	renderLoader();
+	disableButtons();
 	try {
 		const response = await fetch(
 			`https://api.thecatapi.com/v1/images/search?limit=12&page=${currentPage}&order=ASC`,
@@ -32,7 +32,8 @@ async function fetchCats() {
 			}
 		);
 		const data = await response.json();
-		updateImgs(data.map(({ url }) => url));
+		const urls = data.map(({ url }) => url);
+		updateImgs(urls);
 	} catch {
 		renderError();
 	}
@@ -41,7 +42,8 @@ async function fetchCats() {
 
 $buttons.forEach((button) => {
 	button.addEventListener("click", () => {
-		updatePageIndicator(button.classList[0]);
+		const direction = button.classList[0];
+		updatePageIndicator(direction);
 		fetchCats();
 	});
 });

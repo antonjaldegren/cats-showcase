@@ -7,3 +7,7 @@ button:disabled {
 	color: var(--clr-grey);
 	background: var(--clr-lgt-blue);
 }
+
+.error-message {
+	background: var(--clr-lgt-red);
+}

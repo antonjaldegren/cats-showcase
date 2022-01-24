@@ -9,8 +9,8 @@ main {
 	margin: 0 auto;
 	padding: 2em 1em;
 }
+
 button {
-	flex-grow: 1;
 	border: none;
 	padding: 0.7em 0;
 	box-shadow: var(--box-shadow);
@@ -46,7 +46,6 @@ small,
 }
 
 .error-message {
-	background: var(--clr-lgt-red);
 	border-left: 1rem solid var(--clr-drk-red);
 	padding: 1.3em;
 }
