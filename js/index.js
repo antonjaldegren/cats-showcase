@@ -1,25 +1,30 @@
-const $catContainer = document.querySelector(".cat-container");
-const $imgs = document.querySelectorAll(".cat-container img");
-const $pageIndicator = document.querySelector(".page-indicator");
+import {
+	currentPage,
+	updatePageIndicator,
+	renderError,
+	renderLoader,
+	updateImgs,
+} from "./render.js";
+
 const $buttons = document.querySelectorAll("button");
 const $previousButton = document.querySelector(".previous");
 const $nextButton = document.querySelector(".next");
-let currentPage = 0;
 
-function clearCatContainer() {
-	$catContainer.textContent = null;
-}
-async function fetchCats(page) {
+function disableButtons() {
 	$buttons.forEach((button) => (button.disabled = true));
+}
 
-	clearCatContainer();
-	const loadingIndicator = document.createElement("div");
-	loadingIndicator.classList.add("loader");
-	$catContainer.append(loadingIndicator);
+function enableButtons() {
+	$nextButton.disabled = false;
+	if (currentPage !== 0) $previousButton.disabled = false;
+}
 
+async function fetchCats() {
+	disableButtons();
+	renderLoader();
 	try {
 		const response = await fetch(
-			`https://api.thecatapi.com/v1/images/search?limit=12&page=${page}&order=ASC`,
+			`https://api.thecatapi.com/v1/images/search?limit=12&page=${currentPage}&order=ASC`,
 			{
 				headers: {
 					"x-api-key": "2903f1f9-e07e-43eb-95d8-b23b0ea44484",
@@ -29,39 +34,16 @@ async function fetchCats(page) {
 		const data = await response.json();
 		updateImgs(data.map(({ url }) => url));
 	} catch {
-		clearCatContainer();
-
-		const errorMessage = document.createElement("p");
-		errorMessage.classList.add("error-message");
-		errorMessage.textContent =
-			"Something went wrong while fetching data from the server!";
-
-		$catContainer.append(errorMessage);
+		renderError();
 	}
-
-	$pageIndicator.textContent = currentPage;
-	$nextButton.disabled = false;
-	if (currentPage !== 0) $previousButton.disabled = false;
-}
-
-function updateImgs(urls) {
-	$catContainer.textContent = null;
-	urls.forEach((url) => {
-		const img = document.createElement("img");
-		img.src = url;
-		$catContainer.append(img);
-	});
+	enableButtons();
 }
 
 $buttons.forEach((button) => {
 	button.addEventListener("click", () => {
-		if (button.classList.contains("next")) {
-			currentPage++;
-		} else if (button.classList.contains("previous")) {
-			currentPage--;
-		}
-		fetchCats(currentPage);
+		updatePageIndicator(button.classList[0]);
+		fetchCats();
 	});
 });
 
-fetchCats(currentPage);
+fetchCats();
