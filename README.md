@@ -24,9 +24,16 @@ To setup a local developement server, run:
 npm start
 ```
 
+To get the main functionallity of the site to work properly, you will need to [get an API key](https://thecatapi.com/signup), create a `.env` file in the project root directory containing the following text:
+
+```
+SNOWPACK_PUBLIC_ENABLE_FEATURE=true
+SNOWPACK_PUBLIC_API_KEY=<YOUR-API-KEY>
+```
+
 ## How to build a production bundle
 
-To build the app for production, run:
+To build the website for production, run:
 
 ```
 npm run build

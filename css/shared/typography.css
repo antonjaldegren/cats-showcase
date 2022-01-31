@@ -10,3 +10,13 @@ body {
 button {
 	font-size: 2rem;
 }
+
+h1 {
+	font-size: 2.6rem;
+}
+
+@media (min-width: 425px) {
+	h1 {
+		font-size: 3.2rem;
+	}
+}

@@ -1,49 +1,50 @@
+import.meta.hot;
 import {
 	currentPage,
-	updatePageIndicator,
+	renderPageIndicator,
 	renderError,
-	renderLoader,
-	updateImgs,
+	renderSpinner,
+	renderImgs,
 } from "./render.js";
 
+const { SNOWPACK_PUBLIC_API_KEY } = __SNOWPACK_ENV__;
 const $buttons = document.querySelectorAll("button");
 const $previousButton = document.querySelector(".previous");
 const $nextButton = document.querySelector(".next");
 
 function disableButtons() {
-	$buttons.forEach((button) => (button.disabled = true));
+	$buttons.forEach((button) => button.setAttribute("disabled", true));
 }
 
 function enableButtons() {
 	$nextButton.disabled = false;
-	if (currentPage !== 0) $previousButton.disabled = false;
+	currentPage && $previousButton.removeAttribute("disabled");
 }
 
 async function fetchCats() {
-	renderLoader();
+	renderSpinner();
 	disableButtons();
 	try {
 		const response = await fetch(
 			`https://api.thecatapi.com/v1/images/search?limit=12&page=${currentPage}&order=ASC`,
 			{
 				headers: {
-					"x-api-key": "2903f1f9-e07e-43eb-95d8-b23b0ea44484",
+					"x-api-key": SNOWPACK_PUBLIC_API_KEY,
 				},
 			}
 		);
 		const data = await response.json();
-		const urls = data.map(({ url }) => url);
-		updateImgs(urls);
+		renderImgs(data.map(({ url }) => url));
 	} catch {
 		renderError();
+	} finally {
+		enableButtons();
 	}
-	enableButtons();
 }
 
 $buttons.forEach((button) => {
 	button.addEventListener("click", () => {
-		const direction = button.classList[0];
-		updatePageIndicator(direction);
+		renderPageIndicator(button.classList[0]);
 		fetchCats();
 	});
 });

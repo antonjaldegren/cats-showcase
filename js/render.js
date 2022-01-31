@@ -6,7 +6,7 @@ function clearCatContainer() {
 	$catContainer.textContent = null;
 }
 
-function updateImgs(urls) {
+function renderImgs(urls) {
 	$catContainer.textContent = null;
 	urls.forEach((url) => {
 		const img = document.createElement("img");
@@ -15,16 +15,16 @@ function updateImgs(urls) {
 	});
 }
 
-function updatePageIndicator(dir) {
-	if (dir === "next") {
+function renderPageIndicator(direction) {
+	if (direction === "next") {
 		currentPage++;
-	} else if (dir === "previous") {
+	} else if (direction === "previous") {
 		currentPage--;
 	}
 	$pageIndicator.textContent = currentPage;
 }
 
-function renderLoader() {
+function renderSpinner() {
 	clearCatContainer();
 	const loadingIndicator = document.createElement("div");
 	loadingIndicator.classList.add("loader");
@@ -42,8 +42,8 @@ function renderError() {
 
 export {
 	currentPage,
-	updateImgs,
-	updatePageIndicator,
-	renderLoader,
+	renderImgs,
+	renderPageIndicator,
+	renderSpinner,
 	renderError,
 };
