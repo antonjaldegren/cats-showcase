@@ -24,7 +24,7 @@ To setup a local developement server, run:
 npm start
 ```
 
-To get the main functionallity of the site to work properly, you will need to [get an API key](https://thecatapi.com/signup), create a `.env` file in the project root directory containing the following text:
+To get the main functionality of the site to work properly, you will need to [get an API key](https://thecatapi.com/signup), create a `.env` file in the project root directory containing the following text:
 
 ```
 SNOWPACK_PUBLIC_ENABLE_FEATURE=true
